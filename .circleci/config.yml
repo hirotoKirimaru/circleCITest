@@ -5,6 +5,5 @@ jobs:
       - image: circleci/openjdk:8u181-jdk-node-browsers-legacy
     steps:
       - checkout
-      - build
-      - test
+      - run: ./gradlew run
      # - run: echo "A first hello"
