@@ -9,6 +9,6 @@ public class LoginController {
 
 	@RequestMapping("/")
 	public String index() {		
-		return "‚±‚ñ‚É‚¿‚ÍI";
+		return "Hello!";
 	}
 }
