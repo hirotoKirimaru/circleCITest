@@ -19,9 +19,21 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+eclipse {
+  classpath {
+    containers "org.springsource.ide.eclipse.gradle.classpathcontainer"
+  }
+}
+
+jar {
+  baseName = "spring-boot-hello-world"
+  version =  "0.0.1-SNAPSHOT"
+}
+
 repositories {
 	mavenCentral()
 }
+
 
 
 dependencies {
@@ -29,3 +41,21 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
+
+
+/**
+
+mainClassName = 'com.example.demo.CircleCiTestApplication'
+def executableBaseName = "CircleCiTestApplication"
+
+task executableJar(type: Jar, dependsOn: jar)  {
+    archiveName = "${executableBaseName}.jar"
+    manifest {
+        attributes 'Main-Class' : mainClassName
+    }
+
+    from configurations.compile.collect {it.isDirectory() ? it : zipTree(it)}
+    from "$buildDir/classes/main"
+    from "$buildDir/resources/main"
+}
+*/
