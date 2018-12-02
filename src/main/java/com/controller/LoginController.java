@@ -4,11 +4,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//@ResponseBody
 public class LoginController {
 
 	@RequestMapping("/")
 	public String index() {		
-		return "Hello!";
+		return "Hello!World2!";
 	}
 }
