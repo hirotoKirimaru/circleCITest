@@ -1,13 +1,13 @@
 package com.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class LoginController {
 
 	@RequestMapping("/")
-	public String index() {		
-		return "Hello!World2!";
+	public String index() {
+		return "index";
 	}
 }
