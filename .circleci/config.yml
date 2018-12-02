@@ -36,6 +36,7 @@ jobs:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
             - node_modules
+      - run: sudo chmod +x node_modules/.bin/eslint
       - run:
           name: lint
           command: |
