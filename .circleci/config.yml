@@ -50,9 +50,9 @@ jobs:
       - image: circleci/node:8.11.3
     steps:
         - run : yarn
-        - run : sudo chmod +x node_modules/cloc/lib/cloc
+        - run : sudo chmod +x node_modules/.bin/cloc
         - run : 
             name: cloc
             command: 
-              node_modules/cloc/lib/cloc
+              node_modules/.bin/cloc
         
