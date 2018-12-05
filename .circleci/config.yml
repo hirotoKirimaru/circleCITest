@@ -1,10 +1,11 @@
-version: 2
+version: 2.1
 workflows:
-  version: 2
+  version: 2.1
   test:
     jobs:
       - build-1
       - build-2
+      - build-3
 
 jobs:
   build-1:
@@ -31,7 +32,7 @@ jobs:
             - .git
       - restore_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
-      - run: npm install
+      - run: yarn
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
@@ -44,3 +45,13 @@ jobs:
             node_modules/.bin/eslint . --format junit --output-file /tmp/test-reports/eslint/results.xml
       - store_test_results:
           path: /tmp/test-reports
+  build-3:
+    docker:
+      - image: circleci/node:8.11.3
+      steps:
+        - run : sudo chmod +x node_modules/.bin/cloc
+        - run : 
+            name: cloc
+            command: 
+              node_modules/.bin/cloc
+        

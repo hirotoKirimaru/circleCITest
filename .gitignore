@@ -12,7 +12,7 @@
 .sts4-cache
 .class
 bin/
-#node_modules/
+node_modules/
 
 ### IntelliJ IDEA ###
 .idea
