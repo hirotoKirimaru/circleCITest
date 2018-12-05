@@ -49,9 +49,10 @@ jobs:
     docker:
       - image: circleci/node:8.11.3
     steps:
-        - run : sudo chmod +x node_modules/.bin/cloc
+        - run : yarn
+        - run : sudo chmod +x node_modules/cloc/lib/cloc
         - run : 
             name: cloc
             command: 
-              node_modules/.bin/cloc
+              node_modules/cloc/lib/cloc
         
