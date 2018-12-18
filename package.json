@@ -6,8 +6,8 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write --single-quote=true",
+    "*.{js, css}": [
+      "eslint --fix",
       "git add"
     ]
   },
@@ -17,7 +17,6 @@
     "eslint-plugin-prettier": "^2.6.0",
     "husky": "^1.2.0",
     "lint-staged": "^8.1.0",
-    "prettier": "^1.15.3",
-    "cloc": "^2.3.4"
+    "prettier": "^1.15.3"
   }
 }

@@ -1,18 +1,19 @@
 {
-    "env": {
-      "es6": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "plugin:prettier/recommended"
-    ],
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "singleQuote": true,
-          "trailingComma": "es5"
-        }
-      ]
-    }
+  "env": {
+    "es6": true,
+    "jquery": false 
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "es5"
+      }
+    ]
   }
+}
