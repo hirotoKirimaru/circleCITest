@@ -93,26 +93,31 @@ public class UtilsTests {
 		
 		tmpForm = new UserForm();
 		tmpForm.setUserId(100);
+		tmpForm.setSex(0);
 		tmpForm.setVersion(1);
 		a.add(tmpForm);
 		
 		tmpForm = new UserForm();
 		tmpForm.setUserId(200);
+		tmpForm.setSex(0);
 		tmpForm.setVersion(1);
 		a.add(tmpForm);
 		
 		tmpForm = new UserForm();
 		tmpForm.setUserId(300);
+		tmpForm.setSex(0);
 		tmpForm.setVersion(1);
 		a.add(tmpForm);
 		
 		tmpForm = new UserForm();
 		tmpForm.setUserId(100);
+		tmpForm.setSex(1);
 		tmpForm.setVersion(1);
 		b.add(tmpForm);
 		
 		tmpForm = new UserForm();
 		tmpForm.setUserId(400);
+		tmpForm.setSex(1);
 		tmpForm.setVersion(1);
 		b.add(tmpForm);
 		
@@ -134,34 +139,42 @@ public class UtilsTests {
 		
 		tmpForm = new UserForm();
 		tmpForm.setUserId(100);
+//		tmpForm.setSex(0);
 		tmpForm.setVersion(1);
 		a.add(tmpForm);
 		
 		tmpForm = new UserForm();
 		tmpForm.setUserId(200);
+//		tmpForm.setSex(0);
 		tmpForm.setVersion(1);
 		a.add(tmpForm);
 		
 		tmpForm = new UserForm();
 		tmpForm.setUserId(300);
+//		tmpForm.setSex(0);
 		tmpForm.setVersion(1);
 		a.add(tmpForm);
 		
 		tmpForm = new UserForm();
 		tmpForm.setUserId(100);
+//		tmpForm.setSex(1);
 		tmpForm.setVersion(1);
 		a.add(tmpForm);
 		
 		tmpForm = new UserForm();
 		tmpForm.setUserId(400);
+//		tmpForm.setSex(1);
 		tmpForm.setVersion(1);
 		a.add(tmpForm);
 		
+		
+		// すべて一致するのであれば、こちらでいいかも。
 		Set<UserForm> unique = Collections.newSetFromMap(new ConcurrentHashMap<>());
 //	　　　終端処理しないと動かない？
 //	〇	a.stream().parallel().filter(form -> unique.add(form)).collect(Collectors.toList());
 //	×	a.stream().parallel().filter(form -> unique.add(form));
 		a = a.stream().parallel().filter(form -> unique.add(form)).collect(Collectors.toList());
+		
 		
 		System.out.println("てきとう2_1");
 		unique.forEach(ax -> {
