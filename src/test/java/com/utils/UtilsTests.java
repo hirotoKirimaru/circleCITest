@@ -3,8 +3,13 @@ package com.utils;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -120,9 +125,53 @@ public class UtilsTests {
 			System.out.println(ax.getUserId());
 			System.out.println(ax.getVersion());
 		});
+	}
+	
+	@Test
+	public void tekitou2() {
+		List<UserForm> a = new ArrayList<>();
+		UserForm tmpForm;
 		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(100);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
 		
-//		a.stream().filter(e -> Objects.equals(e.getUserId())
+		tmpForm = new UserForm();
+		tmpForm.setUserId(200);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
 		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(300);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(100);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(400);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		Set<UserForm> unique = Collections.newSetFromMap(new ConcurrentHashMap<>());
+//	　　　終端処理しないと動かない？
+//	〇	a.stream().parallel().filter(form -> unique.add(form)).collect(Collectors.toList());
+//	×	a.stream().parallel().filter(form -> unique.add(form));
+		a = a.stream().parallel().filter(form -> unique.add(form)).collect(Collectors.toList());
+		
+		System.out.println("てきとう2_1");
+		unique.forEach(ax -> {
+			System.out.println(ax.getUserId());
+			System.out.println(ax.getVersion());
+		});
+		System.out.println("てきとう2_2");
+		a.forEach(ax -> {
+			System.out.println(ax.getUserId());
+			System.out.println(ax.getVersion());
+		});
 	}
 }
