@@ -71,5 +71,5 @@ jobs:
       - run : 
           name: cloc
           command: 
-            node_modules/.bin/cloc
+            node_modules/.bin/cloc　src/
         
