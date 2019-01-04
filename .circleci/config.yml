@@ -6,14 +6,7 @@ workflows:
       - build-1
       - build-2
       - build-3
-commands:
-  restore_git:
-    steps:
-      - restore_cache:
-        keys:
-          - source-v1-{{ .Branch }}-{{ .Revision }}
-          - source-v1-{{ .Branch }}-
-          - source-v1-
+
 jobs:
   build-1:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
@@ -26,7 +19,11 @@ jobs:
     docker:
       - image: circleci/node:8.11.3
     steps:
-      - restore_git
+      - restore_cache:
+          keys:
+            - source-v1-{{ .Branch }}-{{ .Revision }}
+            - source-v1-{{ .Branch }}-
+            - source-v1-
       - checkout
       - save_cache:
           key: source-v1-{{ .Branch }}-{{ .Revision }}
