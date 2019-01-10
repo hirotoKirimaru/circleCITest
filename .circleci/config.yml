@@ -2,10 +2,11 @@ version: 2.1
 workflows:
   version: 2.1
   build_and_test: #workflow名
-    - build-1
-    - build-2
-    - build-3
-    - build-4
+    jobs:
+      - build-1
+      - build-2
+      - build-3
+      - build-4
 jobs:
   build-1:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
