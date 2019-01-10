@@ -1,13 +1,13 @@
 version: 2.1
 workflows:
   version: 2.1
-  jobs:
-    - junit
+  build_and_hoge: #workflow名
+    - build-1
     - build-2
     - build-3
-    - build
+    - build-4
 jobs:
-  junit:
+  build-1:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
       - image: circleci/openjdk:8u181-jdk-node-browsers-legacy
     steps:
@@ -70,7 +70,7 @@ jobs:
           name: cloc
           command: 
             node_modules/.bin/cloc src
-  junit:
+  build-4:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
       - image: circleci/openjdk:8u181-jdk-node-browsers-legacy
     working_directory: /tmp
