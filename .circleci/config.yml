@@ -1,7 +1,7 @@
 version: 2.1
 workflows:
   version: 2.1
-  build_and_hoge: #workflow名
+  build_and_test: #workflow名
     - build-1
     - build-2
     - build-3
