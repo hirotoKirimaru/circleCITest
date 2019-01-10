@@ -1,13 +1,11 @@
 version: 2.1
 workflows:
   version: 2.1
-  test:
-    jobs:
-      - junit
-      - build-2
-      - build-3
-      - build
-
+  jobs:
+    - junit
+    - build-2
+    - build-3
+    - build
 jobs:
   junit:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
