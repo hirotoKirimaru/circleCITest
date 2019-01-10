@@ -14,15 +14,11 @@ public class LoginController {
 	
 	@RequestMapping("/login")
 	public String login() {
-		System.out.println("ログインボタン");
-		
 		return "index";
 	}
 	
 	@RequestMapping("/top")
 	public String top() {
-		System.out.println("ログインボタン2");
-		
 		return "top";
 	}
 }
