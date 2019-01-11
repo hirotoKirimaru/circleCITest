@@ -65,6 +65,8 @@ jobs:
             node_modules/.bin/eslint . --format junit --output-file /tmp/test-reports/eslint/results.xml
       - store_test_results:
           path: /tmp/test-reports
+      - store_artifacts:
+          path: /tmp/test-reports
   stepCount:
     docker:
       - image: circleci/node:8.11.3
@@ -74,7 +76,6 @@ jobs:
       - run: yarn
       - run: sudo chmod +x node_modules/.bin/cloc
       - run: sudo chmod +x step.sh
-      - run: ls -ltr
       - run: sh step.sh
   releaseStaging:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.

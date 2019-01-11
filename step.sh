@@ -1,9 +1,9 @@
 #!/bin/env bash
 
 # 差分比較元のコミットハッシュ
-readonly BASE_COMMIT= git show-branch --sha1-name master | tail -1 | awk '{print substr($2, index($2, "[") +1, index($2, "]") -2)}'
+BASE_COMMIT= git show-branch --sha1-name master | tail -1 | awk '{print substr($0, index($0, "[") +1, index($0, "]") -2)}'
 # 収集対象言語
-readonly LANGS='["Java","JavaScript"]'
+LANGS='["Java","JavaScript"]'
 
 # リポジトリから一時フォルダへclone
 git clone $CIRCLE_REPOSITORY_URL ./_work
