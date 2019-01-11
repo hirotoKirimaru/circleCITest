@@ -71,8 +71,9 @@ jobs:
     steps:
       - attach_workspace: # workspaceをアタッチする
           at: .
-      - run : yarn
-      - run : sudo chmod +x node_modules/.bin/cloc
+      - run: yarn
+      - run: sudo chmod +x node_modules/.bin/cloc
+      - run: sudo chmod +x ./gradlew
       - run: ./step.sh
   releaseStaging:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
