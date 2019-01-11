@@ -3,12 +3,12 @@ workflows:
   version: 2.1
   build_and_test: #workflow名
     jobs:
-      - build-1
+      - test
       - build-2
       - build-3
       - build-4
 jobs:
-  build-1:
+  test:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
       - image: circleci/openjdk:8u181-jdk-node-browsers-legacy
     steps:
