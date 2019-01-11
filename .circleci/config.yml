@@ -3,9 +3,16 @@ workflows:
   version: 2.1
   build_and_test: #workflow名
     jobs:
-      - test
-      - formatCheck
-      - stepCount
+      - build
+      - test:
+          requires:
+            - build  
+      - formatCheck:
+          requires:
+            - build  
+      - stepCount:
+          requires:
+            - build  
       - releaseStaging:
           requires:
             - test
