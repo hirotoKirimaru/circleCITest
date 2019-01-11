@@ -73,9 +73,9 @@ jobs:
           at: .
       - run: yarn
       - run: sudo chmod +x node_modules/.bin/cloc
-      - run: sudo chmod +x ./step.sh
-      - run: pwd
-      - run: ./step.sh
+      - run: sudo chmod +x step.sh
+      - run: ls -ltr
+      - run: step.sh
   releaseStaging:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
       - image: circleci/openjdk:8u181-jdk-node-browsers-legacy
