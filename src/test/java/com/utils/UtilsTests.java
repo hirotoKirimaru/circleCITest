@@ -3,7 +3,13 @@ package com.utils;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.form.UserForm;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -71,4 +79,112 @@ public class UtilsTests {
 		assertEquals(actual , 200);
 	}
 	
+	
+	
+	/**
+	  * 複数の特定のカラムが重複していた場合、重複を削除する処理をテストする。
+	  * なお、今回はUserIdとVersionの重複しない場合として処理する。
+	 */
+	@Test
+	public void tekitou() {
+		List<UserForm> a = new ArrayList<>();
+		List<UserForm> b = new ArrayList<>();
+		UserForm tmpForm;
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(100);
+		tmpForm.setSex(0);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(200);
+		tmpForm.setSex(0);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(300);
+		tmpForm.setSex(0);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(100);
+		tmpForm.setSex(1);
+		tmpForm.setVersion(1);
+		b.add(tmpForm);
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(400);
+		tmpForm.setSex(1);
+		tmpForm.setVersion(1);
+		b.add(tmpForm);
+		
+		b.forEach(bx -> {
+			boolean flg = a.stream().filter(ax -> Objects.equals(bx.getUserId(), ax.getUserId())).anyMatch(a2 -> Objects.equals(a2.getVersion(), bx.getVersion()));
+			if (!flg) a.add(bx);
+		});
+		
+		a.forEach(ax -> {
+			System.out.println(ax.getUserId());
+			System.out.println(ax.getVersion());
+		});
+	}
+	
+	@Test
+	public void tekitou2() {
+		List<UserForm> a = new ArrayList<>();
+		UserForm tmpForm;
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(100);
+//		tmpForm.setSex(0);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(200);
+//		tmpForm.setSex(0);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(300);
+//		tmpForm.setSex(0);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(100);
+//		tmpForm.setSex(1);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		tmpForm = new UserForm();
+		tmpForm.setUserId(400);
+//		tmpForm.setSex(1);
+		tmpForm.setVersion(1);
+		a.add(tmpForm);
+		
+		
+		// すべて一致するのであれば、こちらでいいかも。
+		Set<UserForm> unique = Collections.newSetFromMap(new ConcurrentHashMap<>());
+//	　　　終端処理しないと動かない？
+//	〇	a.stream().parallel().filter(form -> unique.add(form)).collect(Collectors.toList());
+//	×	a.stream().parallel().filter(form -> unique.add(form));
+		a = a.stream().parallel().filter(form -> unique.add(form)).collect(Collectors.toList());
+		
+		
+		System.out.println("てきとう2_1");
+		unique.forEach(ax -> {
+			System.out.println(ax.getUserId());
+			System.out.println(ax.getVersion());
+		});
+		System.out.println("てきとう2_2");
+		a.forEach(ax -> {
+			System.out.println(ax.getUserId());
+			System.out.println(ax.getVersion());
+		});
+	}
 }
