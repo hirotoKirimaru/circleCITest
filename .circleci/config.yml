@@ -6,7 +6,8 @@ workflows:
       - test
       - formatCheck
       - stepCount
-      - release
+        requires:
+          - release
 jobs:
   test:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
