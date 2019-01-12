@@ -86,7 +86,7 @@ jobs:
       - attach_workspace: # workspaceをアタッチする
           at: .
       - run: sudo chmod +x ./step.sh
-      - run: ./step.sh
+      - run: sh step.sh
   stepCountAll:
     docker:
       - image: circleci/node:8.11.3
