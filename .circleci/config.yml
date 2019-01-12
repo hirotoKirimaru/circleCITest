@@ -80,15 +80,19 @@ jobs:
     docker:
       - image: circleci/node:8.11.3
     working_directory: ~/workspace
+    environment:
+      - BASH_ENV: envrc
     steps:
       - attach_workspace: # workspaceをアタッチする
           at: .
       - run: sudo chmod +x node_modules/.bin/cloc
       - run:
+            echo "
+            export BASE_COMMIT= git show-branch --sha1-name master | tail -1 | awk '{print substr($0, index($0, "[") +1, index($0, "]") -2)}'
+            " >> $BASH_ENV
+      - run:
           name: cloc
           command: |
-            # 差分比較元のコミットハッシュ
-            echo "export BASE_COMMIT= git show-branch --sha1-name master | tail -1 | awk '{print substr($0, index($0, "[") +1, index($0, "]") -2)}'" >> $BASH_ENV
             # 差分
             ./node_modules/.bin/cloc --diff --vcs=git $BASE_COMMIT HEAD
   stepCountAll:
