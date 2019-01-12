@@ -90,7 +90,7 @@ jobs:
             # 差分比較元のコミットハッシュ
             BASE_COMMIT= git show-branch --sha1-name master | tail -1 | awk '{print substr($0, index($0, "[") +1, index($0, "]") -2)}'
             # 差分
-            sh node_modules/.bin/cloc --diff $BASE_COMMIT HEAD
+            ./node_modules/.bin/cloc --diff $BASE_COMMIT HEAD
   stepCountAll:
     docker:
       - image: circleci/node:8.11.3
