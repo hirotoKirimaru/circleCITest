@@ -86,15 +86,7 @@ jobs:
       - attach_workspace: # workspaceをアタッチする
           at: .
       - run: sudo chmod +x node_modules/.bin/cloc
-      - run:
-            echo "
-            export BASE_COMMIT= git show-branch --sha1-name master | tail -1 | awk '{print substr($0, index($0, "[") +1, index($0, "]") -2)}'
-            " >> $BASH_ENV
-      - run:
-          name: cloc
-          command: |
-            # 差分
-            ./node_modules/.bin/cloc --diff --vcs=git $BASE_COMMIT HEAD
+      - run: ./step.sh
   stepCountAll:
     docker:
       - image: circleci/node:8.11.3
