@@ -80,8 +80,6 @@ jobs:
     docker:
       - image: circleci/node:8.11.3
     working_directory: ~/workspace
-    environment:
-      - BASH_ENV: envrc
     steps:
       - attach_workspace: # workspaceをアタッチする
           at: .
