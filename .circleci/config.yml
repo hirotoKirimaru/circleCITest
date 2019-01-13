@@ -92,7 +92,7 @@ jobs:
             # 差分確認元確認用
             echo $BASE_COMMIT
             # 差分
-            ./node_modules/.bin/cloc --diff --vcs=git --csv $BASE_COMMIT HEAD >> /tmp/stepCount.csv
+            ./node_modules/.bin/cloc --diff --vcs=git $BASE_COMMIT HEAD >> /tmp/stepCount.txt
       - store_artifacts:
           path: /tmp/stepCount.csv
           destination: artifact-file
