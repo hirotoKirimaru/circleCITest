@@ -23,6 +23,16 @@ workflows:
           requires:
             - test
             - formatCheck
+  daily_workflow:
+    triggers:
+      - schedule:
+        cron: "00 00 * * *" #UTC(0時起動)
+        filters:
+          branches:
+            only:
+              - master
+    jobs:
+      - stepCountAll
 jobs:
   build:
     docker:
