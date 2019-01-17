@@ -3,25 +3,25 @@ workflows:
   version: 2.1
   due_push_or_pull_request: #workflow名
     jobs:
-      - checkout
+      - checkoutFile
       - test:
           requires:
-            - build  
+            - checkoutFile  
       - sonarqube:
           requires:
-            - build  
+            - checkoutFile  
       - formatCheck:
           requires:
-            - build  
+            - checkoutFile  
       - stepCountDiff:
           requires:
-            - build 
+            - checkoutFile 
           filters:
             branches:
               only: feat*  
       - stepCountAll:
           requires:
-            - build 
+            - checkoutFile 
           filters:
             branches:
               only: master 
@@ -42,12 +42,12 @@ workflows:
               only:
                 - master
     jobs:
-      - checkout
+      - checkoutFile
       - stepCountAll:
           requires:
           - build 
 jobs:
-  checkout:
+  checkoutFile:
     docker:
       - image: circleci/node:8.11.3
     working_directory: ~/workspace
