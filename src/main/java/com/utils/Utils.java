@@ -2,14 +2,20 @@ package com.utils;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
 @Component
 public class Utils {
 
-	public int maxInt(List<Integer> a) {		
-		return a.stream().max(Comparator.naturalOrder()).get();
+	public int maxInt(List<Integer> a) {
+		Optional<Integer> b = a.stream().max(Comparator.naturalOrder());
+		if (b.isPresent()) {
+			return b.get();
+		} else {
+			return 0;
+		}
 	}
 	
 	/**
