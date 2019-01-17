@@ -45,7 +45,7 @@ workflows:
       - checkoutFile
       - stepCountAll:
           requires:
-          - build 
+          - checkoutFile 
 jobs:
   checkoutFile:
     docker:
