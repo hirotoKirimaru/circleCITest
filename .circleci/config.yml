@@ -142,6 +142,8 @@ jobs:
             echo $BASE_COMMIT
             # 差分
             ./node_modules/.bin/cloc --diff --vcs=git $BASE_COMMIT HEAD >> /tmp/stepCount.txt
+      - store_test_results:
+          path: /tmp/
       - store_artifacts:
           path: /tmp/
   stepCountAll:
@@ -156,7 +158,11 @@ jobs:
           name: cloc
           command: |
             # 差分
-            ./node_modules/.bin/cloc src
+            ./node_modules/.bin/cloc src >> /tmp/stepCount.txt
+      - store_test_results:
+          path: /tmp/
+      - store_artifacts:
+          path: /tmp/
   send-approval-link:
     executor: default
     environment:
@@ -177,10 +183,8 @@ jobs:
       - run: sudo chmod +x ./gradlew
       - run: ./gradlew build 
       - run: cp ./build/libs/circleCITest-0.0.1-SNAPSHOT.jar /tmp/jarFile/circleCItest.jar;
-
       - store_artifacts:
           path: /tmp/jarFile/circleCITest.jar;
           destination: artifact-file
-
       - store_artifacts:
           path: /tmp/jarFile
