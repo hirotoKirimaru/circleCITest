@@ -32,7 +32,7 @@ workflows:
             - formatCheck
       - releaseStaging:
           requires:
-            - hold
+            - humanCheck
   daily_workflow:
     triggers:
       - schedule:
