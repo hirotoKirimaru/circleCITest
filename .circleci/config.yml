@@ -25,11 +25,11 @@ workflows:
           filters:
             branches:
               only: master 
-      - hold:
-        type: approval #人によるチェック
-        requires:
-          - test
-          - formatCheck
+      - humanCheck:
+          type: approval #人によるチェック
+          requires:
+            - test
+            - formatCheck
       - releaseStaging:
           requires:
             - hold
