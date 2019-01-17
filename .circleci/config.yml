@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  slack: circleci/slack@0.1.10
 workflows:
   version: 2.1
   due_push_or_pull_request: #workflow名
@@ -155,8 +157,7 @@ jobs:
             # 差分
             ./node_modules/.bin/cloc src
   send-approval-link:
-    docker:
-      - image: circleci/node:8.11.3 #Dockerいる？
+    executor: default
     steps:
       - slack/notify:
           message: |
