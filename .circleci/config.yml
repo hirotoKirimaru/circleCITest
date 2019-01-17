@@ -143,9 +143,6 @@ jobs:
             # 差分
             ./node_modules/.bin/cloc --diff --vcs=git $BASE_COMMIT HEAD >> /tmp/stepCount.txt
       - store_artifacts:
-          path: /tmp/stepCount.csv
-          destination: artifact-file
-      - store_artifacts:
           path: /tmp/
   stepCountAll:
     docker:
