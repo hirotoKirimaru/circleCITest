@@ -9,6 +9,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class Utils {
 
+	public enum LOG_MESSAGE {
+		LOG_START(" 開始 "),
+		LOG_END(" 終了 ");
+
+	  private String message;
+
+	  LOG_MESSAGE(String message){
+	    this.message = message;
+	  }
+	  public String getMessage(){
+	    return this.message;
+	  }
+		
+		
+	}
+	
+	
 	public int maxInt(List<Integer> a) {
 		Optional<Integer> b = a.stream().max(Comparator.naturalOrder());
 		if (b.isPresent()) {
@@ -31,4 +48,13 @@ public class Utils {
 		
 		return rtn;
 	}
+	
+	public static String getClassName() {
+		return Thread.currentThread().getStackTrace()[2].getClassName();
+	}
+	
+	public static String getMethodName() {
+		return Thread.currentThread().getStackTrace()[2].getMethodName();
+	}
+	
 }

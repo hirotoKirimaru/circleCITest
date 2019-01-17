@@ -17,13 +17,16 @@ public class RestApiUtilsTests {
 	@Autowired
 	RestApiUtils testClass;
 	
+	/**
+	 * doGet
+	 * GitHubApi v3へのアクセス
+	 */
 	@Test
-	public void maxInt_1() {
-		String param1 = "hirotoKirimaru";
-		GitHubUser actual = new GitHubUser();
-		actual = testClass.getGitHubUser(param1);
-		assertEquals(actual.getId() ,  30658134);
+	public void doGet_1() {
+		String param1 = "https://api.github.com/users/hirotoKirimaru";
+		GitHubUser actual = testClass.doGet(param1, GitHubUser.class);
+		
 		assertEquals(actual.getLogin() , "hirotoKirimaru");
+		assertEquals(actual.getId() ,  30658134);
 	}
-
 }
