@@ -155,6 +155,8 @@ jobs:
             # 差分
             ./node_modules/.bin/cloc src
   send-approval-link:
+    docker:
+      - image: circleci/node:8.11.3 #Dockerいる？
     steps:
       - slack/notify:
           message: |
