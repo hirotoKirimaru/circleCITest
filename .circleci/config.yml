@@ -30,7 +30,7 @@ workflows:
           requires:
             - test
             - formatCheck
-      - send-approval-link
+      - send-approval-link:
           requires:
             - test
             - formatCheck
