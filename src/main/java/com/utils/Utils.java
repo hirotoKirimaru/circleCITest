@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Utils {
 
-	public enum LOG_MESSAGE {
+	public static enum LOG_MESSAGE {
 		LOG_START(" 開始 "),
 		LOG_END(" 終了 ");
 
