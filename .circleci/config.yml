@@ -46,7 +46,7 @@ workflows:
   daily_workflow:
     triggers:
       - schedule:
-          cron: "15 00 * * *" #UTCなので+9(0時起動)
+          cron: "00 15 * * *" #UTCなので+9(0時起動)
           filters:
             branches:
               only:
