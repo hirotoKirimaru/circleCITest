@@ -1,10 +1,10 @@
 version: 2.1
 orbs:
   slack: circleci/slack@0.1.10
-executors:
-  default:
-    docker:
-      - image: circleci/node:8.11.3
+#executors:
+#  default:
+#    docker:
+#      - image: circleci/node:8.11.3
 workflows:
   version: 2.1
   due_push_or_pull_request: #workflow名
@@ -164,7 +164,8 @@ jobs:
       - store_artifacts:
           path: /tmp/
   send-approval-link:
-    executor: default
+    docker:
+      - image: circleci/node:8.11.3
     steps:
       - slack/notify:
           message: |
