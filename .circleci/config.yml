@@ -4,7 +4,7 @@ orbs:
 executors:
   default:
     docker:
-      - image: circleci/buildpack-deps
+      - image: circleci/node:8.11.3
 workflows:
   version: 2.1
   due_push_or_pull_request: #workflow名
@@ -165,13 +165,12 @@ jobs:
           path: /tmp/
   send-approval-link:
     executor: default
-    environment:
-      - SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
     steps:
       - slack/notify:
           message: |
             Please check and approve Job to deploy.
             https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}
+          webhook: "https://hooks.slack.com/services/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"
   releaseStaging:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
       - image: circleci/openjdk:8u181-jdk-node-browsers-legacy
