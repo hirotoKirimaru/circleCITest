@@ -6,7 +6,6 @@ orbs:
 #    docker:
 #      - image: circleci/node:8.11.3
 workflows:
-  version: 2.1
   due_push_or_pull_request: #workflow名
     jobs:
       - checkoutFile
