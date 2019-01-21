@@ -1,10 +1,10 @@
 version: 2.1
 orbs:
   slack: circleci/slack@0.1.10
-#executors:
-#  default:
-#    docker:
-#      - image: circleci/node:8.11.3
+executors:
+ default:
+   docker:
+     - image: circleci/node:8.11.3
 workflows:
   due_push_or_pull_request: #workflow名
     jobs:
@@ -42,6 +42,9 @@ workflows:
       - releaseStaging:
           requires:
             - humanCheck
+      - reviewdog:
+          requires:
+            - checkoutFile
   daily_workflow:
     triggers:
       - schedule:
@@ -82,6 +85,7 @@ jobs:
           root: . # workspaceのrootパス（絶対パスかworking_directoryからの相対パス）
           paths:
             - . # 共有するパス（絶対パスかrootからの相対パス）
+      - run: curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog && chmod +x ./reviewdog #reviewdogのインストール
   test:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
       - image: circleci/openjdk:8u181-jdk-node-browsers-legacy
@@ -109,7 +113,7 @@ jobs:
             -Dsonar.login=4f8bf55109e6f26a1b2fe41c2412e30d534a624c
   formatCheck:
     docker:
-      - image: circleci/node:8.11.3
+      - image: golang:latest
     working_directory: ~/workspace
     steps:
       - attach_workspace: # workspaceをアタッチする
@@ -120,6 +124,10 @@ jobs:
           command: |
             mkdir -p /tmp/test-reports/eslint
             node_modules/.bin/eslint . --format junit --output-file /tmp/test-reports/eslint/results.xml
+      - run:
+          name: reviewDog
+          command: |
+            node_modules/.bin/eslint -f checkstyle . | reviewdog -f=checkstyle -name="eslint" -reporter=github-pr-check
       - store_test_results:
           path: /tmp/test-reports
       - store_artifacts:
@@ -186,4 +194,4 @@ jobs:
           path: /tmp/jarFile/circleCITest.jar;
           destination: artifact-file
       - store_artifacts:
-          path: /tmp/jarFile
+          path: /tmp/jarFile 
