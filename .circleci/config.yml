@@ -112,7 +112,7 @@ jobs:
             -Dsonar.login=4f8bf55109e6f26a1b2fe41c2412e30d534a624c
   formatCheck:
     docker:
-      - image: golang:latest
+      - image: circleci/node:8.11.3
     working_directory: ~/workspace
     steps:
       - attach_workspace: # workspaceをアタッチする
