@@ -2,11 +2,10 @@ version: 2.1
 orbs:
   slack: circleci/slack@0.1.10
 executors:
-  default:
-    docker:
-      - image: circleci/buildpack-deps
+ default:
+   docker:
+     - image: circleci/node:8.11.3
 workflows:
-  version: 2.1
   due_push_or_pull_request: #workflow名
     jobs:
       - checkoutFile
@@ -43,10 +42,13 @@ workflows:
       - releaseStaging:
           requires:
             - humanCheck
+      - reviewdog:
+          requires:
+            - checkoutFile
   daily_workflow:
     triggers:
       - schedule:
-          cron: "15 00 * * *" #UTCなので+9(0時起動)
+          cron: "00 15 * * *" #UTCなので+9(0時起動)
           filters:
             branches:
               only:
@@ -142,6 +144,8 @@ jobs:
             echo $BASE_COMMIT
             # 差分
             ./node_modules/.bin/cloc --diff --vcs=git $BASE_COMMIT HEAD >> /tmp/stepCount.txt
+      - store_test_results:
+          path: /tmp/
       - store_artifacts:
           path: /tmp/
   stepCountAll:
@@ -156,16 +160,20 @@ jobs:
           name: cloc
           command: |
             # 差分
-            ./node_modules/.bin/cloc src
+            ./node_modules/.bin/cloc src >> /tmp/stepCount.txt
+      - store_test_results:
+          path: /tmp/
+      - store_artifacts:
+          path: /tmp/
   send-approval-link:
-    executor: default
-    environment:
-      - SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
+    docker:
+      - image: circleci/node:8.11.3
     steps:
       - slack/notify:
           message: |
             Please check and approve Job to deploy.
             https://circleci.com/workflow-run/${CIRCLE_WORKFLOW_ID}
+          webhook: "https://hooks.slack.com/services/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"
   releaseStaging:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
       - image: circleci/openjdk:8u181-jdk-node-browsers-legacy
@@ -177,10 +185,19 @@ jobs:
       - run: sudo chmod +x ./gradlew
       - run: ./gradlew build 
       - run: cp ./build/libs/circleCITest-0.0.1-SNAPSHOT.jar /tmp/jarFile/circleCItest.jar;
-
       - store_artifacts:
           path: /tmp/jarFile/circleCITest.jar;
           destination: artifact-file
-
       - store_artifacts:
-          path: /tmp/jarFile
+          path: /tmp/jarFile 
+  reviewdog:
+    docker:
+      - image: golang:latest
+        environment:
+          REVIEWDOG_VERSION: "0.9.11"
+    working_directory: ~/workspace
+    steps:
+      - attach_workspace: # workspaceをアタッチする
+          at: .
+      - run: curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog && chmod +x ./reviewdog
+      - run: go vet ./... 2>&1 | ./reviewdog -f=govet -reporter=github-pr-check
