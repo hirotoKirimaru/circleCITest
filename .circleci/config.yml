@@ -59,6 +59,8 @@ jobs:
   checkoutFile:
     docker:
       - image: circleci/node:8.11.3
+        environment:
+          REVIEWDOG_VERSION: "0.9.11"
     working_directory: ~/workspace
     steps:
       - restore_cache:
