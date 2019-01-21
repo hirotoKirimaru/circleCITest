@@ -42,9 +42,6 @@ workflows:
       - releaseStaging:
           requires:
             - humanCheck
-      - reviewdog:
-          requires:
-            - checkoutFile
   daily_workflow:
     triggers:
       - schedule:
