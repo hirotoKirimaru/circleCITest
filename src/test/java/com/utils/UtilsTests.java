@@ -77,6 +77,19 @@ public class UtilsTests {
 		assertEquals(actual , 200);
 	}
 	
+	@Test
+	public void getClassName_1() {
+		
+		String actual = 	Utils.getClassName();
+		assertEquals(actual, "com.utils.UtilsTests");
+	}
+	
+	@Test
+	public void getMethodName_1() {
+		
+		String actual = 	Utils.getMethodName();
+		assertEquals(actual, "getMethodName_1");
+	}
 	
 	
 	/**
