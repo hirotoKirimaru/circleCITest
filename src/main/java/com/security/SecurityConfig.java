@@ -18,14 +18,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	                "/css/**",
 	                "/js/**"
 	                );
-	  };
+	  }
+	  
+  final String LOGIN_PAGE = "/login";
 	
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
           // アクセス権限の設定
           // staticディレクトリにある、'/css/','fonts','/js/'は制限なし
-          .antMatchers("/","/login")
+          .antMatchers("/",LOGIN_PAGE)
           .permitAll()
           // 他は制限なし
           .anyRequest().authenticated()
@@ -33,12 +35,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           // ログイン処理の設定
           .formLogin()
             // ログイン処理のURL
-            .loginPage("/login")
+            .loginPage(LOGIN_PAGE)
             // usernameのパラメタ名
             .usernameParameter("username")
             // passwordのパラメタ名
             .passwordParameter("password")
-            .failureUrl("/login")
+            .failureUrl(LOGIN_PAGE)
             .defaultSuccessUrl("/top")
             .permitAll()
         .and()
@@ -47,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             // ログアウト処理のURL
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
             // ログアウト成功時の遷移先URL
-            .logoutSuccessUrl("/login")
+            .logoutSuccessUrl(LOGIN_PAGE)
             // ログアウト時に削除するクッキー名
             .deleteCookies("JSESSIONID")
             // ログアウト時のセッション破棄を有効化
