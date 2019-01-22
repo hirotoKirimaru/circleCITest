@@ -105,11 +105,7 @@ jobs:
       - run:
           name: sonarqube
           command: |
-            ./gradlew sonarqube \
-            -Dsonar.projectKey=hirotoKirimaru_circleCITest \
-            -Dsonar.organization=hirotokirimaru-github \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=4f8bf55109e6f26a1b2fe41c2412e30d534a624c
+            ./gradlew sonarqube
   formatCheck:
     docker:
       - image: circleci/node:8.11.3
