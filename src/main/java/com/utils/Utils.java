@@ -21,10 +21,7 @@ public class Utils {
 	  public String getMessage(){
 	    return this.message;
 	  }
-		
-		
 	}
-	
 	
 	public int maxInt(List<Integer> a) {
 		Optional<Integer> b = a.stream().max(Comparator.naturalOrder());
@@ -43,10 +40,12 @@ public class Utils {
 	 * @return
 	 */
 	public int nearIntToMax(List<Integer> a, int b) {		
-		int rtn = 0;
-		rtn = a.stream().filter(x -> x >= b).min(Comparator.naturalOrder()).get();
-		
-		return rtn;
+		Optional<Integer> c = a.stream().filter(x -> x >= b).min(Comparator.naturalOrder());
+		if (c.isPresent()) {
+			return c.get();
+		} else {
+			return 0;
+		}
 	}
 	
 	public static String getClassName() {

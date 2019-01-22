@@ -47,6 +47,15 @@ public class UtilsTests {
 	}
 	
 	@Test
+	public void maxInt_2() {
+		List<Integer> param1 = new ArrayList<Integer>();
+		
+		int actual = 0;
+		actual = testClass.maxInt(param1);
+		assertEquals(actual , 0);
+	}
+	
+	@Test
 	public void nearIntToMax_1() {
 		List<Integer> param1 = new ArrayList<Integer>();
 		int param2 = 130;
@@ -75,6 +84,21 @@ public class UtilsTests {
 		int actual = 0;
 		actual = testClass.nearIntToMax(param1, param2);
 		assertEquals(actual , 200);
+	}
+	
+	@Test
+	public void nearIntToMax_3() {
+		List<Integer> param1 = new ArrayList<Integer>();
+		int param2 = 400;
+		
+		param1.add(100);
+		param1.add(200);
+		param1.add(300);
+		
+		
+		int actual = 0;
+		actual = testClass.nearIntToMax(param1, param2);
+		assertEquals(actual , 0);
 	}
 	
 	@Test
