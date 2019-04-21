@@ -1,4 +1,4 @@
-package com.utils;
+package com.domain;
 
 import static org.junit.Assert.assertEquals;
 
