@@ -47,6 +47,7 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-security')
   
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testCompile("org.junit.jupiter:junit-jupiter-params:5.3.2")
 }
 
 

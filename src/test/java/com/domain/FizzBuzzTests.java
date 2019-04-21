@@ -1,81 +1,64 @@
 package com.domain;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+import java.util.stream.Stream;
+
+import static org.junit.Assert.assertEquals;
+
 @SpringBootTest
 public class FizzBuzzTests {
 
-	@Autowired
-	FizzBuzz testClass;
-	
-	static String FIZZ = "Fizz";
-	static String BUZZ= "Buzz";
-	static String FIZZBUZZ = "FizzBuzz";
-	
-	public  static enum FizzBuzzTestParam{
-		PARAM_1(1,"1"),
-		PARAM_2(2, "2"),
-		PARAM_3(3, FIZZ),
-		PARAM_4(4, "4"),
-		PARAM_5(5, BUZZ),
-		PARAM_6(6, FIZZ),
-		PARAM_7(7, "7"),
-		PARAM_8(8, "8"),
-		PARAM_9(9, FIZZ),
-		PARAM_10(10, BUZZ),
-		PARAM_11(11, "11"),
-		PARAM_12(12, FIZZ),
-		PARAM_13(13, "13"),
-		PARAM_14(14, "14"),
-		PARAM_15(15, FIZZBUZZ),
-		PARAM_16(16, "16"),
-		PARAM_17(17, "17"),
-		PARAM_18(18, FIZZ),
-		PARAM_19(19, "19"),
-		PARAM_20(20, BUZZ),
-		PARAM_21(21, FIZZ),
-		PARAM_22(22, "22"),
-		PARAM_23(23, "23"),
-		PARAM_24(24, FIZZ),
-		PARAM_25(25, BUZZ),
-		PARAM_26(26, "26"),
-		PARAM_27(27, FIZZ),
-		PARAM_28(28, "28"),
-		PARAM_29(29, "29"),
-		PARAM_30(30, FIZZBUZZ),
-		PARAM_31(31, "31"),
-		;
-		private int param;
-		private String expect;
-		
-	   FizzBuzzTestParam(int param, String expect) {
-			this.param = param;
-			this.expect = expect;
-		}
-		
-		  public int getParam(){
-			    return this.param;
-			  }
-		  
-		  public String getExpect(){
-			    return this.expect;
-			  }
-	}
-	
-	@Test
-	public void fizzBuzzTest_1() {
-		
-		String actual;
-		for (FizzBuzzTestParam param : FizzBuzzTestParam.values()) {
-			actual = testClass.fizzBuzz(param.getParam());
-			assertEquals(param.getExpect(), actual);
-		}
-	}
+    @Autowired
+    FizzBuzz testClass;
+
+    static String FIZZ = "Fizz";
+    static String BUZZ = "Buzz";
+    static String FIZZBUZZ = "FizzBuzz";
+
+    @ParameterizedTest
+    @MethodSource("fizzBuzzParameterize")
+    public void fizzBuzzTest(int input, String expect) {
+        assertEquals(expect, testClass.exec(input));
+    }
+
+    private static Stream<Arguments> fizzBuzzParameterize() {
+        return Stream.of(
+                Arguments.of(1, "1"),
+                Arguments.of(2, "2"),
+                Arguments.of(3, FIZZ),
+                Arguments.of(4, "4"),
+                Arguments.of(5, BUZZ),
+                Arguments.of(6, FIZZ),
+                Arguments.of(7, "7"),
+                Arguments.of(8, "8"),
+                Arguments.of(9, FIZZ),
+                Arguments.of(10, BUZZ),
+                Arguments.of(11, "11"),
+                Arguments.of(12, FIZZ),
+                Arguments.of(13, "13"),
+                Arguments.of(14, "14"),
+                Arguments.of(15, FIZZBUZZ),
+                Arguments.of(16, "16"),
+                Arguments.of(17, "17"),
+                Arguments.of(18, FIZZ),
+                Arguments.of(19, "19"),
+                Arguments.of(20, BUZZ),
+                Arguments.of(21, FIZZ),
+                Arguments.of(22, "22"),
+                Arguments.of(23, "23"),
+                Arguments.of(24, FIZZ),
+                Arguments.of(25, BUZZ),
+                Arguments.of(26, "26"),
+                Arguments.of(27, FIZZ),
+                Arguments.of(28, "28"),
+                Arguments.of(29, "29"),
+                Arguments.of(30, FIZZBUZZ),
+                Arguments.of(31, "31")
+        );
+    }
 }
