@@ -48,6 +48,9 @@ dependencies {
   
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testCompile("org.junit.jupiter:junit-jupiter-params:5.3.2")
+
+	testImplementation 'io.cucumber:cucumber-java8:4.3.1'
+	testImplementation 'io.cucumber:cucumber-junit:4.3.1'
 }
 
 
