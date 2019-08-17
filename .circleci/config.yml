@@ -45,19 +45,19 @@ workflows:
       - reviewdog:
           requires:
             - checkoutFile
-  daily_workflow:
-    triggers:
-      - schedule:
-          cron: "00 15 * * *" #UTCなので+9(0時起動)
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - checkoutFile
-      - stepCountAll:
-          requires:
-          - checkoutFile 
+  # daily_workflow:
+  #   triggers:
+  #     - schedule:
+  #         cron: "00 15 * * *" #UTCなので+9(0時起動)
+  #         filters:
+  #           branches:
+  #             only:
+  #               - master
+  #   jobs:
+  #     - checkoutFile
+  #     - stepCountAll:
+  #         requires:
+  #         - checkoutFile 
 jobs:
   checkoutFile:
     docker:
